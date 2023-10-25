@@ -1,30 +1,23 @@
 import axios from "axios";
 
-const useUserApi = (method, isLoading,search) => {
-    //console.log(isLoading, search)
-
-    if(!isLoading){
-        return {}
-    }
-
+const useUserApi = (search) => {
     const axiosData = async() => {
         try{
             const response = await axios({
-                method: `${method}`,
+                method: 'get',
                 url:`${search}`,
                 baseURL:'http://localhost:3001/user/' 
             });
-    
-            console.log(">>> ", response.data)
+            
             return response.data;
         }catch(e){
             console.log(e);
             alert("error page");
-            return {};
+            // return {};
+            return Promise.reject(e);
         }
     }
-
-    return axiosData(method, search);
+    return axiosData;
 }
 
 export default useUserApi;

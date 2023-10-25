@@ -8,7 +8,7 @@ const Profile = ({name, age, bio, picture}) => {
                 <div className='imgWrapper'>
                     <img src={picture}/>
                 </div>
-                <div className='content'>
+                {/* <div className='content'>
                     <div>
                         <span><h2>이름: </h2></span>
                         <h3>{name}</h3>
@@ -24,6 +24,11 @@ const Profile = ({name, age, bio, picture}) => {
                         <p>{bio}</p>
                     </div>
                         
+                </div> */}
+                <div>
+                    <p>이름: {name}</p>
+                    <p>나이: {age}</p>
+                    <p>프로필: {bio}</p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import "./Home.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserApi from "../apis/useUserApi";
 
@@ -7,7 +7,9 @@ const Home = ({setState}) => {
     const [search, setSearch] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const getUserData = useUserApi(search);
+
+    const userData = useUserApi('get',isLoading, search);
+    console.log('>> userdata: ', userData)
     
     const changeSearch = (e) => {
         setSearch(e.target.value);
@@ -32,17 +34,35 @@ const Home = ({setState}) => {
 
    // const findUser = async( => {
     const findUser = async() => {
-        try{
-            const userData = await getUserData();
+        console.log(`>> ßin findUser : `,userData);
+        if(userData){
             setState(userData);
-            navigate('/profile');
-        }catch(e){
-            console.log(e);
+            navigate('/profile'); 
+        }else{
             return;
-        }finally{
-            setIsLoading(false);
-            setSearch("");
         }
+        // setState(userData);
+        // navigate('/profile');
+        // try{
+        //     const data = await axios({
+        //         method: 'get',
+        //         url:`/user/${search}`,
+        //         baseURL:'http://localhost:3001'
+        //     });
+
+        //     setState(data.data);
+        //     navigate('/profile');
+        // }catch(e){
+        //     const status = e.response.status.toString();
+        //     if(status[0] === '4'){
+        //         alert('4xx error')
+        //     }else {
+        //         alert('5xx error')
+        //     }
+        // }finally{
+        //     setIsLoading(false);
+        //     setSearch("");
+        // }
     }
 
     return (
